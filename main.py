@@ -5,9 +5,19 @@ import matplotlib.pyplot as plt
 wind_speeds = np.array([5, 10, 15, 20, 25])
 wind_directions = np.array([0, 45, 90, 135, 180])  # From North, Eastward
 
-# Setup the plot for circles with central axes
+# Points defined by their velocity and direction
+points = {
+    "P1": {"velocity": 4, "direction": (110+180)},
+    "P2": {"velocity": 8, "direction": (178+180)},
+    "P3": {"velocity": 13, "direction": (200+180)},
+    "P4": {"velocity": 18, "direction": (220+180)},
+    "P5": {"velocity": 23, "direction": (250+180)}
+}
+
+# Set up the plot for circles with central axes
 fig, ax = plt.subplots(figsize=(8, 8))
 ax.set_aspect('equal', 'box')
+
 
 # Set limits for the plot
 max_speed = wind_speeds.max()
@@ -24,12 +34,24 @@ ax.text(-max_speed * 1.1, 0, '90°', horizontalalignment='right', verticalalignm
 for speed in wind_speeds:
     circle = plt.Circle((0, 0), speed, color='blue', fill=False, linestyle='--', linewidth=1)
     ax.add_artist(circle)
-    # Place labels below the circle by using negative speed for the y-coordinate
     ax.text(-3, -speed, f'{speed} m/s', horizontalalignment='center', verticalalignment='top')
 
 # Add a horizontal and vertical line through the origin to represent the axes
 ax.axhline(y=0, color='black', linewidth=1.5)
 ax.axvline(x=0, color='black', linewidth=1.5)
+
+# Extract (u, v) coordinates for each point and plot them
+u_values = []
+v_values = []
+for point, attributes in points.items():
+    u = attributes["velocity"] * np.sin(np.radians(attributes["direction"]))
+    v = attributes["velocity"] * np.cos(np.radians(attributes["direction"]))
+    u_values.append(u)
+    v_values.append(v)
+    ax.plot(u, v, marker='o', markersize=10, color='red', label=f'{point}: {attributes["velocity"]} m/s, {attributes["direction"]}°')
+
+# Connect points with a solid line
+ax.plot(u_values, v_values, marker='', linestyle='-', color='red')
 
 # Set limits for the plot
 ax.set_xlim(-max_speed, max_speed)
