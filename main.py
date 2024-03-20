@@ -18,7 +18,6 @@ points = {
 fig, ax = plt.subplots(figsize=(8, 8))
 ax.set_aspect('equal', 'box')
 
-
 # Set limits for the plot
 max_speed = wind_speeds.max()
 ax.set_xlim(-max_speed, max_speed)
