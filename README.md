@@ -1,8 +1,6 @@
 # Hodograph
 
-Python script for creating a hodograph, which is a diagram representing the movement of a fluid. It is also called a **velocity diagram**.
-
-
+Python script for creating a hodograph, which is a diagram representing the movement of a fluid. It is also called a **velocity diagram** (https://en.wikipedia.org/wiki/Hodograph).
 
 User can enter a set of wind speeds [m/s] and directions [degrees] at individual heights that will be plotted in the final image. A sample of the output is in the hodograph_points.png file and looks like this:
 
