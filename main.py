@@ -1,18 +1,24 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 
-# Sample wind speed (in m/s) and direction (in degrees)
-wind_speeds = np.array([5, 10, 15, 20, 25])
-wind_directions = np.array([0, 45, 90, 135, 180])  # From North, Eastward
-
-# Points defined by their velocity and direction
+# Points defined by their velocity (m/s) and direction (degrees)
 points = {
     "P1": {"velocity": 4, "direction": (110+180)},
     "P2": {"velocity": 8, "direction": (178+180)},
     "P3": {"velocity": 13, "direction": (200+180)},
     "P4": {"velocity": 18, "direction": (220+180)},
-    "P5": {"velocity": 23, "direction": (250+180)}
+    "P5": {"velocity": 23, "direction": (250+180)},
 }
+
+# Wind speed for the plot (m/s)
+velocity_max = max(point['velocity'] for point in points.values())
+number_of_points = len(points)
+wind_speeds_step = math.ceil(velocity_max / number_of_points)
+wind_speeds = np.arange(1, number_of_points+1) * wind_speeds_step
+
+# Set wind directions for the plot (degrees)
+wind_directions = np.array([0, 45, 90, 135, 180])  # From North, Eastward
 
 # Set up the plot for circles with central axes
 fig, ax = plt.subplots(figsize=(8, 8))
